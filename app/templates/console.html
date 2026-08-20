@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Astrologer Console — AstroLive Orbit{% endblock %}
+{% block body_class %}operator-view{% endblock %}
+{% block content %}
+<section class="shell page-hero"><span class="tag">Operational prototype</span><h1>Begin with context, not repetition.</h1><p class="lede">The console shows only information the user explicitly approved for this consultation.</p></section>
+{% set demo_brief = console.brief|default(none) if console is defined else none %}
+<section class="shell grid-3" data-console>
+  {% if not demo_brief %}<div class="surface panel span-all empty-state"><span class="empty-orbit"></span><h2>No approved brief is available.</h2><p>The console stays empty until the user creates and separately approves a consultation brief.</p><a class="button button-secondary" href="/bridge">Prepare a brief</a></div>{% else %}
+  <article class="surface panel span-2"><div class="chart-head"><div><p class="eyebrow">Approved brief</p><h2>{{ demo_brief.topic|replace('_',' ')|title }}</h2></div><span class="tag tag-success">Consent verified</span></div>
+    <div class="brief-section"><h3>Context in the user’s words</h3><p>{{ demo_brief.context }}</p></div>
+    <div class="brief-section"><h3>Desired outcome</h3><p>{{ demo_brief.desired_outcome }}</p></div>
+    <div class="brief-section"><h3>Questions they want to ask</h3><ul>{% for question in demo_brief.questions %}<li>{{ question }}</li>{% endfor %}</ul></div>
+  </article>
+  <aside class="surface panel"><p class="eyebrow">Session frame</p><div class="brief-section"><h3>Mode &amp; language</h3><p>{{ booking.mode|title if booking else demo_brief.preferred_mode|title }} · {{ demo_brief.preferred_language }}</p></div>{% if booking %}<div class="brief-section"><h3>Sample booking</h3><p>{{ booking.astrologer_name }} · {{ booking.scheduled_label }}</p></div>{% endif %}<div class="brief-section"><h3>Suggested speciality</h3><p>{{ demo_brief.speciality }}</p><p class="fine-print">{{ demo_brief.explanation }}</p></div><div class="brief-section"><h3>Timing preference</h3><p>{{ demo_brief.urgency|replace('-',' ')|title }}</p></div></aside>
+  <article class="surface panel"><p class="eyebrow">Consented context</p><h3>Recent Pulse themes</h3>{% if console.checkins|default([]) %}{% for checkin in console.checkins %}<div class="brief-section"><p><strong>{{ checkin.emotional_state|title }} · confidence {{ checkin.confidence }}/5</strong></p><p>{{ checkin.concern }}</p></div>{% endfor %}{% else %}<p>No Pulse context was shared.</p>{% endif %}<span class="tag">No birth details shown</span></article>
+  <article class="surface panel"><p class="eyebrow">Suggested openings</p><ol><li>What would make “{{ demo_brief.desired_outcome }}” feel useful by the end?</li>{% for question in demo_brief.questions[:2] %}<li>Would you like to begin with: {{ question }}</li>{% endfor %}</ol></article>
+  <article class="surface panel"><p class="eyebrow">After the session</p><h3>Return ownership to the user</h3><p>Invite them to approve a short summary and up to three actions. Do not imply certainty or guaranteed outcomes.</p><a class="button button-secondary" href="/follow-up">Draft follow-up</a></article>{% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,217 @@
+{
+  "ok": true,
+  "browser": "chrome.exe",
+  "base_url": "isolated localhost server",
+  "journey_steps": [
+    "landing",
+    "onboarding",
+    "pulse",
+    "saved check-in",
+    "relevance feedback",
+    "consultation draft",
+    "explicit brief approval",
+    "demo booking",
+    "consent-filtered astrologer console",
+    "post-consultation follow-up",
+    "secure Circle invitation",
+    "independent invitee browser",
+    "invitee consented check-in",
+    "mutual insight unlock",
+    "Journey timeline",
+    "Pulse action completion",
+    "follow-up action completion",
+    "consultation helpfulness",
+    "filtered Growth Cockpit",
+    "10,000-trial experiment simulation",
+    "populated 360px route and control inspection",
+    "server-side demo deletion/reset",
+    "complete interactive journey repeated at 360px",
+    "360px journey deletion/reset"
+  ],
+  "screenshots": [
+    "docs/screenshots/01_landing_desktop.png",
+    "docs/screenshots/02_pulse_desktop.png",
+    "docs/screenshots/03_bridge_desktop.png",
+    "docs/screenshots/04_booking_confirmation_desktop.png",
+    "docs/screenshots/05_astrologer_console_desktop.png",
+    "docs/screenshots/06_circle_invitation_desktop.png",
+    "docs/screenshots/07_mutual_circle_insight_desktop.png",
+    "docs/screenshots/08_journey_desktop.png",
+    "docs/screenshots/09_growth_cockpit_desktop.png",
+    "docs/screenshots/10_experiment_simulator_desktop.png",
+    "docs/screenshots/11_landing_mobile.png",
+    "docs/screenshots/12_pulse_mobile.png",
+    "docs/screenshots/13_growth_mobile.png"
+  ],
+  "overflow_checks": [
+    {
+      "page": "landing-desktop",
+      "scroll": 1407,
+      "viewport": 1422,
+      "overflow_px": -15
+    },
+    {
+      "page": "pulse-desktop",
+      "scroll": 1407,
+      "viewport": 1422,
+      "overflow_px": -15
+    },
+    {
+      "page": "growth-desktop",
+      "scroll": 1407,
+      "viewport": 1422,
+      "overflow_px": -15
+    },
+    {
+      "page": "/-mobile",
+      "scroll": 489,
+      "viewport": 500,
+      "overflow_px": -11
+    },
+    {
+      "page": "/onboarding-mobile",
+      "scroll": 485,
+      "viewport": 500,
+      "overflow_px": -15
+    },
+    {
+      "page": "/pulse-mobile",
+      "scroll": 485,
+      "viewport": 500,
+      "overflow_px": -15
+    },
+    {
+      "page": "/bridge-mobile",
+      "scroll": 485,
+      "viewport": 500,
+      "overflow_px": -15
+    },
+    {
+      "page": "/booking-mobile",
+      "scroll": 485,
+      "viewport": 500,
+      "overflow_px": -15
+    },
+    {
+      "page": "/console-mobile",
+      "scroll": 485,
+      "viewport": 500,
+      "overflow_px": -15
+    },
+    {
+      "page": "/follow-up-mobile",
+      "scroll": 485,
+      "viewport": 500,
+      "overflow_px": -15
+    },
+    {
+      "page": "/circle-mobile",
+      "scroll": 485,
+      "viewport": 500,
+      "overflow_px": -15
+    },
+    {
+      "page": "/journey-mobile",
+      "scroll": 485,
+      "viewport": 500,
+      "overflow_px": -15
+    },
+    {
+      "page": "/growth-mobile",
+      "scroll": 485,
+      "viewport": 500,
+      "overflow_px": -15
+    },
+    {
+      "page": "/experiments-mobile",
+      "scroll": 485,
+      "viewport": 500,
+      "overflow_px": -15
+    },
+    {
+      "page": "/privacy-mobile",
+      "scroll": 485,
+      "viewport": 500,
+      "overflow_px": -15
+    },
+    {
+      "page": "mobile-full-pulse",
+      "scroll": 485,
+      "viewport": 500,
+      "overflow_px": -15
+    },
+    {
+      "page": "mobile-full-booking",
+      "scroll": 485,
+      "viewport": 500,
+      "overflow_px": -15
+    },
+    {
+      "page": "mobile-full-independent-invitee",
+      "scroll": 485,
+      "viewport": 500,
+      "overflow_px": -15
+    },
+    {
+      "page": "mobile-full-journey",
+      "scroll": 485,
+      "viewport": 500,
+      "overflow_px": -15
+    },
+    {
+      "page": "mobile-full-growth",
+      "scroll": 485,
+      "viewport": 500,
+      "overflow_px": -15
+    },
+    {
+      "page": "mobile-full-privacy",
+      "scroll": 485,
+      "viewport": 500,
+      "overflow_px": -15
+    }
+  ],
+  "downloads": [
+    "privacy-safe Circle PNG",
+    "simulator JSON",
+    "simulator CSV"
+  ],
+  "console_errors": [],
+  "accessibility_checks": [
+    {
+      "check": "prefers-reduced-motion",
+      "passed": true,
+      "matches": true,
+      "scroll": "auto"
+    },
+    {
+      "check": "keyboard-focus-visible",
+      "passed": true,
+      "href": "#main",
+      "outline": "solid",
+      "tag": "A",
+      "visible": true,
+      "width": "3px"
+    },
+    {
+      "check": "mobile-nav-keyboard-toggle",
+      "passed": true,
+      "width": 360
+    }
+  ],
+  "main_paths": [
+    "/",
+    "/onboarding",
+    "/pulse",
+    "/bridge",
+    "/booking",
+    "/console",
+    "/follow-up",
+    "/circle",
+    "/journey",
+    "/growth",
+    "/experiments",
+    "/privacy"
+  ],
+  "last_stage": "health-and-console"
+}

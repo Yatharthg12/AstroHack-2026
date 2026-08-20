@@ -1,0 +1,324 @@
+{
+  "features": [
+    "account_age_days",
+    "days_since_last_session",
+    "sessions_7d",
+    "sessions_30d",
+    "pulse_checkins_7d",
+    "pulse_checkins_30d",
+    "weekly_active_days",
+    "avg_session_minutes",
+    "content_diversity_30d",
+    "consultations_90d",
+    "days_since_last_consultation",
+    "briefs_started_30d",
+    "referrals_created_90d",
+    "feedback_helpful_rate"
+  ],
+  "provenance": "Models and metrics use reproducible synthetic demonstration data only.",
+  "seed": 2026,
+  "split": {
+    "method": "chronological 60/20/20 by as_of_date, then user_id",
+    "test_rows": 482,
+    "test_start": "2026-06-19",
+    "train_end": "2026-05-07",
+    "train_rows": 1411,
+    "validation_end": "2026-06-18",
+    "validation_rows": 507,
+    "validation_start": "2026-05-08"
+  },
+  "tasks": {
+    "churn_risk": {
+      "permutation_importance_test": [
+        {
+          "feature": "days_since_last_session",
+          "importance_mean": 0.16158,
+          "importance_std": 0.01695
+        },
+        {
+          "feature": "consultations_90d",
+          "importance_mean": 0.01493,
+          "importance_std": 0.00985
+        },
+        {
+          "feature": "days_since_last_consultation",
+          "importance_mean": 0.00723,
+          "importance_std": 0.00585
+        },
+        {
+          "feature": "content_diversity_30d",
+          "importance_mean": 0.00584,
+          "importance_std": 0.00392
+        },
+        {
+          "feature": "weekly_active_days",
+          "importance_mean": 0.0058,
+          "importance_std": 0.00653
+        },
+        {
+          "feature": "avg_session_minutes",
+          "importance_mean": 0.0033,
+          "importance_std": 0.0049
+        },
+        {
+          "feature": "sessions_30d",
+          "importance_mean": 0.00124,
+          "importance_std": 0.00209
+        },
+        {
+          "feature": "pulse_checkins_7d",
+          "importance_mean": 0.00111,
+          "importance_std": 0.00197
+        },
+        {
+          "feature": "feedback_helpful_rate",
+          "importance_mean": 0.00109,
+          "importance_std": 0.00064
+        },
+        {
+          "feature": "pulse_checkins_30d",
+          "importance_mean": 0.00069,
+          "importance_std": 0.00188
+        },
+        {
+          "feature": "sessions_7d",
+          "importance_mean": -0.00057,
+          "importance_std": 0.00097
+        },
+        {
+          "feature": "account_age_days",
+          "importance_mean": -0.0016,
+          "importance_std": 0.00122
+        },
+        {
+          "feature": "referrals_created_90d",
+          "importance_mean": -0.00409,
+          "importance_std": 0.00372
+        },
+        {
+          "feature": "briefs_started_30d",
+          "importance_mean": -0.00528,
+          "importance_std": 0.00638
+        }
+      ],
+      "selected_model": "logistic_regression",
+      "selection_rule": "Highest validation PR-AUC; prefer logistic within 0.02 equivalence margin.",
+      "target": "future_30d_churn",
+      "task": "churn_risk",
+      "test_metrics": {
+        "accuracy": 0.4461,
+        "brier": 0.213,
+        "confusion_matrix": {
+          "fn": 1,
+          "fp": 266,
+          "tn": 19,
+          "tp": 196
+        },
+        "f1": 0.5948,
+        "positive_rate": 0.4087,
+        "pr_auc": 0.6077,
+        "precision": 0.4242,
+        "recall": 0.9949,
+        "roc_auc": 0.6939,
+        "support": 482,
+        "threshold": 0.18
+      },
+      "threshold_costs": {
+        "logistic_regression": {
+          "false_negative_cost": 3.0,
+          "false_positive_cost": 1.0,
+          "validation_cost_per_user": 0.5444
+        },
+        "random_forest": {
+          "false_negative_cost": 3.0,
+          "false_positive_cost": 1.0,
+          "validation_cost_per_user": 0.5404
+        }
+      },
+      "validation_comparison": {
+        "logistic_regression": {
+          "accuracy": 0.4675,
+          "brier": 0.2067,
+          "confusion_matrix": {
+            "fn": 3,
+            "fp": 267,
+            "tn": 20,
+            "tp": 217
+          },
+          "f1": 0.6165,
+          "positive_rate": 0.4339,
+          "pr_auc": 0.681,
+          "precision": 0.4483,
+          "recall": 0.9864,
+          "roc_auc": 0.7089,
+          "support": 507,
+          "threshold": 0.18
+        },
+        "random_forest": {
+          "accuracy": 0.4793,
+          "brier": 0.2087,
+          "confusion_matrix": {
+            "fn": 5,
+            "fp": 259,
+            "tn": 28,
+            "tp": 215
+          },
+          "f1": 0.6196,
+          "positive_rate": 0.4339,
+          "pr_auc": 0.6889,
+          "precision": 0.4536,
+          "recall": 0.9773,
+          "roc_auc": 0.7065,
+          "support": 507,
+          "threshold": 0.25
+        }
+      }
+    },
+    "consultation_intent": {
+      "permutation_importance_test": [
+        {
+          "feature": "days_since_last_consultation",
+          "importance_mean": 0.02525,
+          "importance_std": 0.01785
+        },
+        {
+          "feature": "content_diversity_30d",
+          "importance_mean": 0.01141,
+          "importance_std": 0.01578
+        },
+        {
+          "feature": "sessions_7d",
+          "importance_mean": 0.00918,
+          "importance_std": 0.00668
+        },
+        {
+          "feature": "pulse_checkins_30d",
+          "importance_mean": 0.00339,
+          "importance_std": 0.00176
+        },
+        {
+          "feature": "briefs_started_30d",
+          "importance_mean": 0.00329,
+          "importance_std": 0.00665
+        },
+        {
+          "feature": "consultations_90d",
+          "importance_mean": 0.00184,
+          "importance_std": 0.00285
+        },
+        {
+          "feature": "referrals_created_90d",
+          "importance_mean": 5e-05,
+          "importance_std": 0.00031
+        },
+        {
+          "feature": "weekly_active_days",
+          "importance_mean": -2e-05,
+          "importance_std": 0.00693
+        },
+        {
+          "feature": "avg_session_minutes",
+          "importance_mean": -0.0007,
+          "importance_std": 0.00028
+        },
+        {
+          "feature": "sessions_30d",
+          "importance_mean": -0.00119,
+          "importance_std": 0.0027
+        },
+        {
+          "feature": "days_since_last_session",
+          "importance_mean": -0.00231,
+          "importance_std": 0.00294
+        },
+        {
+          "feature": "pulse_checkins_7d",
+          "importance_mean": -0.00289,
+          "importance_std": 0.00299
+        },
+        {
+          "feature": "account_age_days",
+          "importance_mean": -0.00402,
+          "importance_std": 0.00315
+        },
+        {
+          "feature": "feedback_helpful_rate",
+          "importance_mean": -0.01009,
+          "importance_std": 0.00343
+        }
+      ],
+      "selected_model": "logistic_regression",
+      "selection_rule": "Highest validation PR-AUC; prefer logistic within 0.02 equivalence margin.",
+      "target": "future_14d_consultation",
+      "task": "consultation_intent",
+      "test_metrics": {
+        "accuracy": 0.722,
+        "brier": 0.1437,
+        "confusion_matrix": {
+          "fn": 59,
+          "fp": 75,
+          "tn": 315,
+          "tp": 33
+        },
+        "f1": 0.33,
+        "positive_rate": 0.1909,
+        "pr_auc": 0.3459,
+        "precision": 0.3056,
+        "recall": 0.3587,
+        "roc_auc": 0.7196,
+        "support": 482,
+        "threshold": 0.27
+      },
+      "threshold_costs": {
+        "logistic_regression": {
+          "false_negative_cost": 2.5,
+          "false_positive_cost": 1.0,
+          "validation_cost_per_user": 0.4753
+        },
+        "random_forest": {
+          "false_negative_cost": 2.5,
+          "false_positive_cost": 1.0,
+          "validation_cost_per_user": 0.5069
+        }
+      },
+      "validation_comparison": {
+        "logistic_regression": {
+          "accuracy": 0.7377,
+          "brier": 0.1704,
+          "confusion_matrix": {
+            "fn": 72,
+            "fp": 61,
+            "tn": 326,
+            "tp": 48
+          },
+          "f1": 0.4192,
+          "positive_rate": 0.2367,
+          "pr_auc": 0.3929,
+          "precision": 0.4404,
+          "recall": 0.4,
+          "roc_auc": 0.6761,
+          "support": 507,
+          "threshold": 0.27
+        },
+        "random_forest": {
+          "accuracy": 0.6884,
+          "brier": 0.2096,
+          "confusion_matrix": {
+            "fn": 66,
+            "fp": 92,
+            "tn": 295,
+            "tp": 54
+          },
+          "f1": 0.406,
+          "positive_rate": 0.2367,
+          "pr_auc": 0.3518,
+          "precision": 0.3699,
+          "recall": 0.45,
+          "roc_auc": 0.6359,
+          "support": 507,
+          "threshold": 0.5
+        }
+      }
+    }
+  }
+}

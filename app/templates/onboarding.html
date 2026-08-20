@@ -1,0 +1,32 @@
+{% extends "base.html" %}{% from "_macros.html" import stepper %}
+{% block title %}Begin your Orbit{% endblock %}
+{% block content %}
+{% set values = form|default({}) if form|default({}) else user|default({}) %}
+<div class="shell section-tight">{{ stepper(1) }}</div>
+<section class="shell split">
+  <div>
+    <p class="eyebrow">Your orbit, your boundaries</p><h1>Start with only what helps.</h1>
+    <p class="lede">A few details tailor this prototype. Birth time and city are optional; Orbit only derives a sun sign from your date.</p>
+    <div class="subtle-panel"><h3>What we do not calculate</h3><p class="fine-print">This demo does not claim a full Kundli, planetary position, or deterministic forecast. Optional details demonstrate consent-aware product design only.</p></div>
+  </div>
+  <form class="surface panel stack" method="post" action="/onboarding" data-onboarding-form data-async-form>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    {% if error|default(none) %}<div class="notice notice-error" role="alert">{{ error }}</div>{% endif %}
+    <div class="form-grid">
+      <div class="field"><label class="required" for="display_name">Display name</label><input id="display_name" name="display_name" maxlength="40" autocomplete="nickname" required placeholder="What should we call you?" value="{{ values.display_name|default('') }}"></div>
+      <div class="field"><label class="required" for="birth_date">Date of birth</label><input id="birth_date" name="birth_date" type="date" min="1900-01-01" required value="{{ values.birth_date|default('') }}"><small class="field-help" data-sun-sign>Used only to derive a sun sign.</small></div>
+      <div class="field"><label for="birth_time">Birth time <span class="muted">(optional)</span></label><input id="birth_time" name="birth_time" type="time" value="{{ values.birth_time|default('') }}"></div>
+      <div class="field"><label for="birth_city">Birth city <span class="muted">(optional)</span></label><input id="birth_city" name="birth_city" maxlength="80" autocomplete="address-level2" placeholder="e.g. Jaipur" value="{{ values.birth_city|default('') }}"></div>
+      <fieldset class="field full"><legend class="required">What deserves attention right now?</legend><div class="choice-grid">
+        {% for value,label in [('career','Career'),('relationship','Relationship'),('finance','Finance'),('education','Education'),('family','Family'),('personal growth','Personal growth')] %}<div class="choice"><input id="focus_{{ loop.index }}" type="radio" name="focus_area" value="{{ value }}" {% if loop.first %}required{% endif %} {% if values.focus_area|default('') == value %}checked{% endif %}><label for="focus_{{ loop.index }}">{{ label }}</label></div>{% endfor %}
+      </div></fieldset>
+      <div class="field full"><label class="required" for="communication_preference">How should guidance feel?</label><select id="communication_preference" name="communication_preference" required><option value="">Choose a style</option>{% for value,label in [('concise','Concise and practical'),('supportive','Supportive and reassuring'),('detailed','Detailed and exploratory')] %}<option value="{{ value }}" {% if values.communication_preference|default('') == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></div>
+    </div>
+    <div class="divider"></div>
+    <div class="check-row"><input id="save_consent" name="save_consent" value="yes" type="checkbox" required {% if values.save_consent|default(false) %}checked{% endif %}><label for="save_consent"><strong>I consent to save this journey in the prototype’s server-side SQLite database.</strong><br>This connects Pulse, Bridge, and Journey. Browser-session access lasts up to 8 hours; there is no login or recovery if that session is lost. On the supplied free Render setup, server storage is ephemeral and may disappear on restart or deploy.</label></div>
+    <div class="check-row"><input id="circle_consent" name="circle_consent" value="yes" type="checkbox" {% if values.circle_consent|default(false) %}checked{% endif %}><label for="circle_consent"><strong>Optionally enable Circle sharing.</strong><br>Nothing is shared now. This only keeps the option available later.</label></div>
+    <p class="status-line" data-form-status aria-live="polite"></p>
+    <button class="button button-gold" type="submit">Enter my Orbit <span aria-hidden="true">→</span></button>
+  </form>
+</section>
+{% endblock %}

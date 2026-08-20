@@ -1,0 +1,24 @@
+{% extends "base.html" %}{% from "_macros.html" import stepper %}
+{% block title %}Continue your guidance — AstroLive Orbit{% endblock %}
+{% block content %}
+<div class="shell section-tight">{{ stepper(4) }}</div>
+<section class="shell page-hero"><p class="eyebrow">After the conversation</p><h1>Keep what helped. Leave the rest.</h1><p class="lede">Approve your own summary and choose a few realistic actions. The prototype stores these in its server-side SQLite Journey.</p></section>
+{% if not booking|default(none) %}<section class="shell"><div class="surface panel empty-state"><span class="empty-orbit"></span><h2>No sample consultation to follow up yet.</h2><p>Complete a prepared sample booking before creating continuity actions.</p><a class="button button-secondary" href="/booking">Open sample booking</a></div></section>{% else %}<section class="shell split">
+  <form class="surface panel stack" method="post" action="/api/follow-up" data-followup-form>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <input type="hidden" name="booking_id" value="{{ booking.id }}">
+    <div class="subtle-panel"><strong>Following sample booking #{{ booking.id }}</strong><p class="fine-print">{{ booking.astrologer_name }} · {{ booking.scheduled_label }}. This plan and its helpfulness rating stay attached to this owned booking.</p></div>
+    <div class="field"><label class="required" for="summary">Your approved summary</label><textarea id="summary" name="summary" required maxlength="1000">{{ followup.summary if followup|default(none) else 'I want to give this decision more structure, without turning uncertainty into urgency.' }}</textarea><small class="field-help">Edit this until it reflects what you—not the astrologer—want to retain.</small></div>
+    <fieldset class="field"><legend>Up to three follow-up actions</legend><div class="stack" data-actions>
+      {% set saved_actions = followup.actions if followup|default(none) else ['Write down the two options and one trade-off for each','Speak with one trusted person before deciding'] %}
+      {% for index in range(3) %}<input name="actions" maxlength="180" value="{{ saved_actions[index] if index < saved_actions|length else '' }}" {% if index == 2 %}placeholder="Optional third action"{% endif %} aria-label="Follow-up action {{ index + 1 }}">{% endfor %}
+    </div></fieldset>
+    <div class="field"><label class="required" for="checkin_date">Check in with myself on</label><input id="checkin_date" name="checkin_date" type="date" value="{{ followup.scheduled_checkin if followup|default(none) else '' }}" required></div>
+    <fieldset class="field"><legend>How helpful was the conversation?</legend><div class="feedback-row">{% for value,label in [('helpful','Helpful'),('somewhat','Somewhat'),('not_yet','Not yet')] %}<button id="help_{{ value }}" type="button" data-helpfulness-value="{{ value }}" aria-pressed="{{ 'true' if consultation_feedback == value else 'false' }}">{{ label }}</button>{% endfor %}<input type="hidden" name="helpfulness" data-helpfulness-input value="{{ consultation_feedback or '' }}"></div><p class="fine-print">Optional. The same booking-specific answer appears in Journey.</p></fieldset>
+    <div class="check-row"><input id="approve_followup" name="approved" value="true" type="checkbox" required><label for="approve_followup">I reviewed and approve this summary for my private Journey.</label></div>
+    <p class="status-line" data-form-status aria-live="polite"></p><button class="button button-gold" type="submit">{{ 'Save another approved version' if followup|default(none) else 'Save my follow-up' }}</button>
+  </form>
+  <aside class="stack">{% if followup|default(none) %}<article class="surface panel"><span class="tag tag-success">Saved continuity plan</span><h2>Your latest approved version for booking #{{ booking.id }}</h2><p>{{ followup.summary }}</p><ul>{% for action in followup.actions %}<li>{{ action }}</li>{% endfor %}</ul><p class="fine-print">Check in on {{ followup.scheduled_checkin }}. Complete individual actions from Journey.</p></article>{% endif %}<article class="surface panel"><span class="tag tag-success">Continuity, not dependency</span><h2>Two ways forward</h2><p>Your follow-up stays private by default. You can return to Pulse on your own rhythm, or invite someone you trust into a separate consented Circle.</p><div class="button-row"><a class="button button-secondary" href="/pulse">Continue privately</a><a class="button button-ghost" href="/circle">Invite through Circle</a></div></article><div class="consent-gate"><strong>A scheduled check-in is only a stored date.</strong><p class="fine-print">This demo records the date in its server-side Journey database; it does not send messages or notifications.</p></div></aside>
+</section>
+{% endif %}
+{% endblock %}

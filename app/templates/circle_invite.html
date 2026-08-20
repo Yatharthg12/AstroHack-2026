@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}A private Orbit Circle invitation{% endblock %}
+{% block content %}
+<section class="shell page-hero"><span class="tag">Private invitation</span><h1>{{ invitation.inviter_name|default('Someone you trust') if invitation else 'Someone you trust' }} invited you to pause together.</h1><p class="lede">Complete a short, independent check-in. You choose what can be shared, and your responses are not shown as raw notes.</p></section>
+<section class="shell split" data-circle-invite data-token="{{ token|default('') }}">
+  {% if not error|default(none) and not invitation.completed|default(false) %}
+  <form class="surface panel stack" action="/api/referrals/{{ token|default('demo') }}/complete" method="post" data-invite-form>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <div class="field"><label class="required" for="conversation_style">What would feel supportive?</label><select id="conversation_style" name="conversation_style" required><option value="listen">A person who listens</option><option value="ideas">Sharing practical ideas</option><option value="space">Quiet space and time</option></select></div>
+    <div class="check-row"><input id="guest_consent" name="consent" value="true" type="checkbox" required><label for="guest_consent"><strong>I consent to this minimal Circle check-in.</strong><br>Only my broad conversation preference is sent. It selects a non-sensitive shared suggestion; no name, mood, birth detail, or free text is requested.</label></div>
+    <p class="status-line" data-form-status aria-live="polite"></p><button class="button button-gold" type="submit">Complete my check-in</button>
+  </form>
+  <aside class="surface panel stack"><p class="eyebrow">Before you begin</p><h2>Your response belongs to you.</h2><p>This invitation is not a request to disclose personal details. You can leave without participating.</p><div class="consent-gate"><strong>Mutual means mutual</strong><p class="fine-print">An insight unlocks only if both sides consent. Your preference selects a broad communication suggestion; it does not expose either person’s private response.</p></div><a class="text-link" href="/privacy">Review privacy principles →</a></aside>
+  {% elif invitation and invitation.completed|default(false) %}
+  <div class="surface panel span-all"><div class="empty-state"><span class="empty-orbit"></span><span class="tag tag-success">Check-in complete</span><h2>This invitation has already been completed.</h2><p>The response form is closed. For privacy, this link does not reveal the participant name, their responses, or the mutual insight.</p><a class="button button-secondary" href="/">Explore Orbit safely</a></div></div>
+  {% else %}
+  <div class="surface panel span-all"><div class="empty-state"><span class="empty-orbit"></span><h2>This invitation is no longer available.</h2><p>{{ error|default('It may have expired, been reset, or never existed. No information was exposed.') }}</p><a class="button button-secondary" href="/">Explore Orbit safely</a></div></div>
+  {% endif %}
+</section>
+<section class="shell section-tight" data-mutual-insight hidden><article class="surface panel"><span class="tag tag-success">Mutual insight unlocked</span><h2>A shared pause is ready.</h2><p data-mutual-insight-text>Your consented mutual insight will appear here.</p><p class="fine-print">This is a deterministic communication suggestion, not an astrological or psychological assessment.</p></article></section>
+{% endblock %}

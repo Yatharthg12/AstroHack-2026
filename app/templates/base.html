@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" data-theme="orbit">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#090b20">
+  <meta name="csrf-token" content="{{ csrf_token|default('') }}">
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.svg') }}" type="image/svg+xml">
+  <meta name="description" content="AstroLive Orbit — a consent-first continuous guidance prototype.">
+  <title>{% block title %}AstroLive Orbit{% endblock %}</title>
+  <link rel="stylesheet" href="/static/css/orbit.css">
+  {% block head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}" data-page-context="{{ (page_context|default({}))|tojson|forceescape }}">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="star-field" aria-hidden="true"></div>
+  <header class="site-header" data-header>
+    <div class="shell nav-wrap">
+      <a class="brand" href="/" aria-label="AstroLive Orbit home">
+        <span class="brand-mark" aria-hidden="true"><i></i></span>
+        <span><b>AstroLive</b><strong>Orbit</strong></span>
+      </a>
+      <button class="nav-toggle icon-button" type="button" aria-expanded="false" aria-controls="primary-nav" data-nav-toggle>
+        <span class="sr-only">Toggle navigation</span><span></span><span></span><span></span>
+      </button>
+      <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation" data-nav>
+        <a href="/pulse" data-nav-path="/pulse">Pulse</a>
+        <a href="/bridge" data-nav-path="/bridge">Bridge</a>
+        <a href="/circle" data-nav-path="/circle">Circle</a>
+        <a href="/journey" data-nav-path="/journey">Journey</a>
+        <a href="/growth" data-nav-path="/growth">Growth</a>
+        <a class="button button-small button-gold" href="/onboarding">Experience Orbit</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    {% with messages = get_flashed_messages(with_categories=true) if get_flashed_messages is defined else [] %}
+      {% if messages %}
+        <div class="shell flash-stack" aria-live="polite">
+          {% for category, message in messages %}
+            <div class="notice notice-{{ category|e }}">{{ message|e }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <div>
+        <a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true"><i></i></span><span><b>AstroLive</b><strong>Orbit</strong></span></a>
+        <p>Reflective guidance that connects daily rituals with better-prepared human conversations.</p>
+      </div>
+      <div>
+        <h2>Explore</h2>
+        <a href="/pulse">Daily Pulse</a><a href="/bridge">Consultation Bridge</a><a href="/circle">Orbit Circle</a>
+      </div>
+      <div>
+        <h2>Operators</h2>
+        <a href="/growth">Growth Cockpit</a><a href="/experiments">Experiment simulator</a><a href="/console">Astrologer console</a>
+      </div>
+      <div>
+        <h2>Trust</h2>
+        <a href="/privacy">Privacy &amp; ethics</a><p class="fine-print">Product prototype by OrbitWorks for AstroHack 2026.</p>
+      </div>
+    </div>
+    <div class="shell footer-bottom"><span>© 2026 OrbitWorks</span><span>Guidance, not certainty.</span></div>
+  </footer>
+
+  <div class="toast-region" aria-live="polite" aria-atomic="true" data-toasts></div>
+  <script src="/static/js/orbit.js" defer></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

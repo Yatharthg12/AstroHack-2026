@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Sample booking — AstroLive Orbit{% endblock %}
+{% block content %}
+<section class="shell page-hero"><p class="eyebrow">Non-transactional demo</p><h1>Choose who fits the conversation.</h1><p class="lede">These are fictional sample profiles, prices, and slots for prototype evaluation. No payment is collected and no real AstroLive booking is made.</p></section>
+<section class="shell" data-booking>
+  {% if not brief|default(none) or not brief.approved|default(false) %}<div class="surface panel empty-state"><span class="empty-orbit"></span><h2>Approve your brief first.</h2><p>A sample booking needs a consultation brief that you have separately reviewed and approved.</p><a class="button button-secondary" href="/bridge">Open Consultation Bridge</a></div>{% else %}
+  {% if booking|default(none) %}<div class="notice notice-success"><strong>Saved sample booking:</strong> {{ booking.astrologer_name }} · {{ booking.mode|title }} · {{ booking.scheduled_label }}. You may create another demo booking below; no real reservation or payment exists.</div>{% else %}<div class="notice notice-info">Demo only: selecting “Confirm sample booking” stores a server-side prototype event.</div>{% endif %}
+  <form class="stack section-tight" action="/api/bookings" method="post" data-booking-form>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <input type="hidden" name="brief_id" value="{{ brief.id|default('demo-brief') if brief is defined else 'demo-brief' }}">
+    <fieldset><legend class="eyebrow">1 · Sample astrologer</legend><div class="astrologer-grid">
+      {% set samples = astrologers|default([{'id':'asha','name':'Asha Sharma','speciality':'Career & life direction','languages':['Hindi','English'],'experience':'8 years','price':299},{'id':'dev','name':'Dev Mehta','speciality':'Relationships & family','languages':['Hinglish','English'],'experience':'11 years','price':349},{'id':'meera','name':'Meera Rao','speciality':'Education & personal growth','languages':['English','Hindi'],'experience':'6 years','price':249}]) %}
+      {% for person in samples %}<label class="surface astrologer" for="astro_{{ person.id }}"><input class="sr-only" id="astro_{{ person.id }}" type="radio" name="astrologer_id" value="{{ person.id }}" {% if loop.first %}checked{% endif %}><span class="astrologer-focus-ring" aria-hidden="true"></span><span class="avatar" aria-hidden="true">{{ person.name[0] }}</span><span><strong>{{ person.name }}</strong><span class="meta">Sample profile{% if person.experience is defined %} · {{ person.experience }}{% endif %}</span></span><span class="tag">{{ person.speciality }}</span><span class="meta">{{ person.languages|join(' · ') if person.languages is not string else person.languages }}</span><span class="price">₹{{ '%.0f'|format(person.price) }} / demo session</span></label>{% endfor %}
+    </div></fieldset>
+    <div class="surface panel form-grid">
+      <div class="field"><label for="booking_mode">2 · Conversation mode</label><select id="booking_mode" name="mode"><option value="chat">Chat</option><option value="audio">Audio</option><option value="video">Video</option></select></div>
+      <div class="field"><label for="slot">3 · Sample time</label><select id="slot" name="slot" required>{% for item in booking_slots|default([]) %}<option value="{{ item.value }}">{{ item.label }}</option>{% else %}<option value="tomorrow_1030">Next day · 10:30 AM (sample)</option><option value="tomorrow_1900">Next day · 7:00 PM (sample)</option>{% endfor %}</select></div>
+      <div class="full"><p class="fine-print">By continuing, you use the consultation brief approved in Bridge. This creates only a demo confirmation.</p><p class="status-line" data-form-status aria-live="polite"></p><button class="button button-gold" type="submit">{{ 'Create another sample booking' if booking|default(none) else 'Confirm sample booking' }}</button></div>
+    </div>
+  </form>
+  <div class="surface panel" data-booking-confirmation {% if not booking|default(none) %}hidden{% endif %}><span class="tag tag-success">Sample booking saved</span><h2>Your conversation is prepared.</h2><p data-confirmation-copy>We saved the demo booking and your approved brief is ready for the sample console.</p><div class="button-row"><a class="button button-secondary" href="/console">Preview astrologer view</a><a class="button button-ghost" href="/follow-up">Continue to follow-up demo</a></div></div>
+  {% endif %}
+</section>
+{% endblock %}

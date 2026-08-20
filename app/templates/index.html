@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}AstroLive Orbit — Continuous guidance{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="shell hero-layout">
+    <div>
+      <span class="kicker">A continuous guidance prototype</span>
+      <h1><span class="gradient-text">A little clarity.</span><br>Every day.</h1>
+      <p class="hero-copy">Orbit connects small daily reflections, well-prepared human consultations, and thoughtful follow-through—so guidance keeps moving with you.</p>
+      <div class="button-row">
+        <a class="button button-large button-gold" href="/onboarding">Experience Orbit <span aria-hidden="true">→</span></a>
+        <a class="button button-large button-secondary" href="/growth">Open Growth Cockpit</a>
+      </div>
+      <div class="trust-row" aria-label="Product principles"><span><i></i>Consent-first context</span><span><i></i>Human guidance stays central</span><span><i></i>No guaranteed predictions</span></div>
+    </div>
+    <div class="orbit-visual" aria-label="A visual showing Pulse, Bridge and Circle orbiting a guidance core">
+      <div class="orbit-ring"></div><div class="orbit-ring"></div>
+      <div class="orbit-core"><div><strong>7</strong><small>day rhythm</small></div></div>
+      <span class="flow-card">Daily Pulse</span><span class="flow-card">Human Bridge</span><span class="flow-card">Trusted Circle</span>
+    </div>
+  </div>
+</section>
+
+<section class="section shell" aria-labelledby="loop-title">
+  <div class="section-heading"><p class="eyebrow">One connected orbit</p><h2 id="loop-title">From reflection to meaningful action</h2><p>Each moment earns the next. Nothing is shared or carried forward without a clear choice.</p></div>
+  <div class="journey-flow">
+    {% for name, copy in [('Pulse','A two-minute daily check-in.'),('Signal','Readiness, never destiny.'),('Bridge','A brief you review first.'),('Guidance','A human-led conversation.'),('Continue','Follow up or share safely.')] %}
+    <article class="flow-step"><span>0{{ loop.index }}</span><h3>{{ name }}</h3><p>{{ copy }}</p></article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell grid-3">
+    <article class="surface principle-card"><span class="number">01 · RELEVANT</span><h3>A ritual worth returning to</h3><p>Pulse turns how you feel and what matters today into one grounded reflection and a manageable action.</p><a class="text-link" href="/pulse">Try Daily Pulse →</a></article>
+    <article class="surface principle-card"><span class="number">02 · HUMAN</span><h3>Arrive ready, not repetitive</h3><p>Bridge shapes your own words into a brief. You edit it, approve it, and choose what an astrologer can see.</p><a class="text-link" href="/bridge">Build a Bridge →</a></article>
+    <article class="surface principle-card"><span class="number">03 · TRUSTED</span><h3>Growth with a reason to share</h3><p>Circle creates a private invitation. A mutual insight unlocks only after both people consent and participate.</p><a class="text-link" href="/circle">Explore Circle →</a></article>
+  </div>
+</section>
+
+<section class="section shell">
+  <div class="surface panel split">
+    <div><p class="eyebrow">Designed for trust</p><h2>Reflective, not fatalistic.</h2><p>Orbit never presents astrology as scientific certainty, and it does not offer medical, legal, or investment advice. Product intelligence predicts engagement signals—not a person’s future.</p></div>
+    <div class="stack"><div class="subtle-panel"><span class="tag tag-success">You stay in control</span><h3>Explicit consent boundaries</h3><p class="fine-print">See what is saved, choose what travels into a consultation, and reset this session’s server-side demo data while session access remains available.</p></div><a class="button button-secondary" href="/privacy">Read the trust framework</a></div>
+  </div>
+</section>
+{% endblock %}

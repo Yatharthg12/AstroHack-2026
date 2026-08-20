@@ -1,0 +1,28 @@
+{% extends "base.html" %}{% from "_macros.html" import stepper %}
+{% block title %}Daily Pulse — AstroLive Orbit{% endblock %}
+{% block content %}
+<div class="shell section-tight">{{ stepper(2) }}</div>
+<section class="shell page-hero"><p class="eyebrow" data-pulse-eyebrow>{{ 'Day ' ~ streak ~ ' in your rhythm' if streak|default(0) > 0 else 'Start your rhythm' }}</p><h1>How are you arriving today?</h1><p class="lede">Take a quiet minute. Your answer shapes a reflection—not a prediction.</p></section>
+<section class="shell pulse-layout" data-pulse>
+  <form class="surface panel stack" action="/api/check-ins" method="post" data-pulse-form data-checkin-id="{{ latest_checkin.id|default('') if latest_checkin else '' }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <fieldset class="field"><legend class="required">Your energy right now</legend><div class="mood-scale">
+      {% for value,label in [('low','Low'),('stretched','Stretched'),('grounded','Grounded'),('hopeful','Hopeful'),('energised','Energised')] %}<div class="choice"><input id="mood_{{ value }}" name="mood" type="radio" value="{{ value }}" {% if value=='grounded' %}checked{% endif %}><label for="mood_{{ value }}"><strong>{{ loop.index }}</strong>{{ label }}</label></div>{% endfor %}
+    </div></fieldset>
+    <div class="field"><label for="confidence">Confidence for the day</label><div class="range-wrap"><input id="confidence" name="confidence" type="range" min="1" max="5" value="3" data-range><output class="range-value" for="confidence">3</output></div></div>
+    <div class="field"><label class="required" for="concern">What is taking up the most space?</label><textarea id="concern" name="concern" maxlength="240" required placeholder="For example: I need to make progress on a decision without rushing it."></textarea><small class="field-help">Keep it to what feels useful. Avoid sensitive identifiers.</small></div>
+    <div class="check-row"><input id="save_checkin" name="save" value="true" type="checkbox" checked><label for="save_checkin">Save this Pulse to my private Journey.</label></div>
+    <p class="status-line" data-form-status aria-live="polite"></p><button class="button button-gold" type="submit">Reveal today’s reflection</button>
+    <div class="divider"></div>
+    <div><span class="data-label" data-streak-label>This week · {{ streak|default(0) }} day streak</span><div class="week-strip" aria-label="Weekly check-in completion">
+      {% for day in ['M','T','W','T','F','S','S'] %}{% set done = pulse.weekly[loop.index0] if pulse.weekly is defined else false %}<span class="day {% if done %}done{% elif loop.index0 == now_weekday|default(-1) %}today{% endif %}" data-week-day="{{ loop.index0 }}" data-today="{{ 'true' if loop.index0 == now_weekday|default(-1) else 'false' }}"><i>{% if done %}✓{% else %}{{ loop.index }}{% endif %}</i>{{ day }}</span>{% endfor %}
+    </div></div>
+  </form>
+  <article class="surface panel reflection-card" data-reflection-card>
+    <div><span class="tag" data-reflection-tag>{{ 'Latest saved reflection' if latest_checkin else 'Your reflection will appear here' }}</span><blockquote data-reflection>{{ latest_checkin.reflection if latest_checkin else 'Complete the Pulse form to create a transparent, deterministic reflection.' }}</blockquote><p class="fine-print" data-reflection-why>{{ latest_checkin.reason if latest_checkin else 'Nothing has been inferred or saved yet.' }}</p></div>
+    <div><div class="action-chip"><span>1</span><div><strong>Your micro-action</strong><p data-micro-action>{{ latest_checkin.micro_action if latest_checkin else 'A small next step will appear after a valid check-in.' }}</p></div></div>
+    <div class="feedback-row"><span class="fine-print">Was this relevant?</span><button type="button" data-feedback="true" aria-pressed="{{ 'true' if latest_checkin and latest_checkin.relevance == 'yes' else 'false' }}" {% if not latest_checkin %}disabled{% endif %}>Yes</button><button type="button" data-feedback="false" aria-pressed="{{ 'true' if latest_checkin and latest_checkin.relevance == 'no' else 'false' }}" {% if not latest_checkin %}disabled{% endif %}>Not quite</button></div>
+    <div class="button-row"><a class="button button-secondary" href="/bridge">I want deeper guidance</a><a class="text-link" href="/journey">View my Journey</a></div></div>
+  </article>
+</section>
+{% endblock %}

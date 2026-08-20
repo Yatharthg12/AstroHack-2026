@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Orbit Circle — Share clarity, safely{% endblock %}
+{% block content %}
+<section class="shell page-hero"><p class="eyebrow">Structural virality, built on consent</p><h1>Invite someone you trust into a shared moment of clarity.</h1><p class="lede">They independently consent and choose a non-sensitive conversation preference. A small mutual suggestion unlocks only when both people participate.</p></section>
+<section class="shell split" data-circle data-referral-expiry="{{ referral.expires_at|default('') if referral else '' }}">
+  <div class="stack">
+    <article class="surface share-card" data-share-card>
+      <div class="brand"><span class="brand-mark" aria-hidden="true"><i></i></span><span><b>AstroLive</b><strong>Orbit Circle</strong></span></div>
+      <blockquote>“A small pause can make a shared conversation feel lighter.”</blockquote>
+      <footer>No private birth details or concerns are included.</footer>
+    </article>
+    <div class="check-row"><input id="circle_permission" type="checkbox" data-circle-consent {% if consents.circle_sharing|default(false) %}checked{% endif %}><label for="circle_permission">I consent to create a private Circle invitation. The token URL contains no personal details; when opened, the page identifies me by my display name. Unchecking this immediately revokes active links.</label></div>
+    <div class="share-url"><input type="text" readonly aria-label="Private invitation URL" value="{% if referral|default(none) %}/circle/{{ referral.token }}{% else %}Create an invitation to generate a private link{% endif %}" data-share-url><button class="button button-secondary" type="button" data-copy-link {% if not referral|default(none) %}disabled{% endif %}>Copy link</button></div>
+    <div class="button-row"><button class="button button-gold" type="button" data-create-invite>Create private invitation</button><a class="button button-secondary" href="#" target="_blank" rel="noopener" data-whatsapp aria-disabled="true">Share on WhatsApp</a><button class="button button-ghost" type="button" data-download-card="png" disabled>PNG card</button><button class="button button-ghost" type="button" data-download-card="svg" disabled>SVG card</button></div>
+    <p class="status-line" data-circle-status aria-live="polite"></p><p class="fine-print">Send the link to your invited person, who should open it in their own browser session. This signed owner session cannot complete its own invitation.</p>
+    <article class="surface panel" data-owner-mutual-insight {% if not (referral and referral.mutual_insight|default(none)) %}hidden{% endif %}><span class="tag tag-success">Mutual insight unlocked</span><h2>Your shared pause is ready.</h2><p data-owner-mutual-insight-text>{{ referral.mutual_insight|default('') if referral else '' }}</p><p class="fine-print">Only this non-sensitive, consented suggestion is shown—never either person’s raw response.</p></article>
+  </div>
+  <aside class="surface panel stack">
+    <div><span class="tag">How Circle works</span><h2>A mutual unlock, not a broadcast.</h2></div>
+    {% for title,copy in [('You create a private link','The server stores a random, expiring token. The URL carries no profile or concern.'),('They decide independently','Your invited person consents and chooses a conversation preference. The raw selection is not stored separately; its derived suggestion is retained and shared.'),('Both unlock one insight','Their explicit conversation preference selects a broad suggestion—never birth details, moods, or raw notes.')] %}<div class="action-chip"><span>{{ loop.index }}</span><div><strong>{{ title }}</strong><p>{{ copy }}</p></div></div>{% endfor %}
+    <div class="consent-gate"><strong>Expires automatically</strong><p class="fine-print" data-expiry>New links expire after 7 days. You can revoke active links now or reset this server-side demo while the signed session remains available.</p></div>
+  </aside>
+</section>
+{% set circle_status = referral.status|default('not-created') if referral else 'not-created' %}
+<section class="shell section"><div class="surface panel"><p class="eyebrow">Circle progress</p><div class="journey-flow" data-circle-progress>
+  {% for name in ['Created','Opened','Consented completion','Mutual insight'] %}{% set reached = (loop.index == 1 and circle_status != 'not-created') or (loop.index == 2 and circle_status in ['opened','completed']) or (loop.index >= 3 and circle_status == 'completed') %}<div class="flow-step {% if reached %}is-complete{% endif %}" data-circle-step="{{ loop.index }}"><span>{{ '✓' if reached else loop.index }}</span><h3>{{ name }}</h3><p>{{ 'Complete' if reached else 'Waiting safely' }}</p></div>{% endfor %}
+</div></div></section>
+{% endblock %}

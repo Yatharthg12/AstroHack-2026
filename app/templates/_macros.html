@@ -1,0 +1,25 @@
+{% macro page_hero(eyebrow, title, copy) %}
+<section class="page-hero shell">
+  <p class="eyebrow">{{ eyebrow }}</p>
+  <h1>{{ title }}</h1>
+  <p class="lede">{{ copy }}</p>
+</section>
+{% endmacro %}
+
+{% macro stepper(active=1) %}
+<ol class="stepper" aria-label="Orbit journey progress">
+  {% for label in ['Begin', 'Pulse', 'Bridge', 'Follow-up'] %}
+  <li class="{% if loop.index < active %}is-done{% elif loop.index == active %}is-current{% endif %}" {% if loop.index == active %}aria-current="step"{% endif %}>
+    <span>{{ loop.index }}</span><small>{{ label }}</small>
+  </li>
+  {% endfor %}
+</ol>
+{% endmacro %}
+
+{% macro empty_state(title, copy, href='', label='') %}
+<div class="empty-state">
+  <span class="empty-orbit" aria-hidden="true"></span>
+  <h3>{{ title }}</h3><p>{{ copy }}</p>
+  {% if href and label %}<a class="button button-secondary" href="{{ href }}">{{ label }}</a>{% endif %}
+</div>
+{% endmacro %}
