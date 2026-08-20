@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: astrolive-orbit
+    runtime: python
+    plan: free
+    buildCommand: python -m pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 60 run:app
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.11
+      - key: ORBIT_SECRET_KEY
+        generateValue: true
+      - key: ORBIT_SECURE_COOKIES
+        value: "1"
+      - key: ORBIT_DATABASE
+        value: /tmp/orbit.db
+      - key: ORBIT_MODEL_DIR
+        value: artifacts/models
+      - key: ORBIT_DEMO_DATA
+        value: data/demo/synthetic_orbit_users.csv

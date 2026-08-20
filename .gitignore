@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.venv/
+venv/
+env/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Runtime state
+instance/
+/orbit.db
+/orbit.db-journal
+/orbit.sqlite
+/orbit.sqlite3
+
+# Tests, linting, and coverage
+.pytest_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# IDE and OS state
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Private or restricted data (public synthetic demo data remains tracked)
+data/private/
+data/raw/private/
+data/raw/restricted/
+
+# Temporary browser/report QA output; final curated screenshots and PDF remain tracked
+tmp/
+temp/
+qa-output/
+playwright-report/
+test-results/
+report/renders/
+report/qa/pages/
+submission/page-renders/
