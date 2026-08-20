@@ -1,0 +1,156 @@
+{
+  "status": "passed",
+  "pdf": "submission\\AstroLive_OrbitWorks_YatharthGarg.pdf",
+  "file_size_bytes": 681348,
+  "page_count": 12,
+  "minimum_page_count": 8,
+  "extractor": "PyMuPDF",
+  "required_sections_found": 22,
+  "required_sections_total": 22,
+  "missing_sections": [],
+  "page_text_character_counts": [
+    260,
+    2153,
+    2110,
+    2065,
+    2111,
+    2211,
+    2081,
+    2008,
+    1910,
+    2109,
+    2540,
+    3203
+  ],
+  "potentially_blank_pages": [],
+  "assets": [
+    {
+      "path": "report\\assets\\architecture_flow.png",
+      "width": 1200,
+      "height": 300,
+      "nonzero_dimensions": true
+    },
+    {
+      "path": "report\\assets\\journey_loop.png",
+      "width": 1200,
+      "height": 300,
+      "nonzero_dimensions": true
+    },
+    {
+      "path": "report\\assets\\model_performance.png",
+      "width": 1200,
+      "height": 300,
+      "nonzero_dimensions": true
+    },
+    {
+      "path": "report\\assets\\prototype_evidence_placeholder.png",
+      "width": 1200,
+      "height": 500,
+      "nonzero_dimensions": true
+    },
+    {
+      "path": "report\\assets\\scenario_intervals.png",
+      "width": 1200,
+      "height": 300,
+      "nonzero_dimensions": true
+    },
+    {
+      "path": "report\\assets\\synthetic_dashboard.png",
+      "width": 1200,
+      "height": 300,
+      "nonzero_dimensions": true
+    }
+  ],
+  "rendering": {
+    "available": true,
+    "dependency": "PyMuPDF",
+    "pages": [
+      {
+        "page": 1,
+        "path": "report\\qa\\pages\\page-01.png",
+        "width": 893,
+        "height": 1263,
+        "blank_by_pixel_range": false
+      },
+      {
+        "page": 2,
+        "path": "report\\qa\\pages\\page-02.png",
+        "width": 893,
+        "height": 1263,
+        "blank_by_pixel_range": false
+      },
+      {
+        "page": 3,
+        "path": "report\\qa\\pages\\page-03.png",
+        "width": 893,
+        "height": 1263,
+        "blank_by_pixel_range": false
+      },
+      {
+        "page": 4,
+        "path": "report\\qa\\pages\\page-04.png",
+        "width": 893,
+        "height": 1263,
+        "blank_by_pixel_range": false
+      },
+      {
+        "page": 5,
+        "path": "report\\qa\\pages\\page-05.png",
+        "width": 893,
+        "height": 1263,
+        "blank_by_pixel_range": false
+      },
+      {
+        "page": 6,
+        "path": "report\\qa\\pages\\page-06.png",
+        "width": 893,
+        "height": 1263,
+        "blank_by_pixel_range": false
+      },
+      {
+        "page": 7,
+        "path": "report\\qa\\pages\\page-07.png",
+        "width": 893,
+        "height": 1263,
+        "blank_by_pixel_range": false
+      },
+      {
+        "page": 8,
+        "path": "report\\qa\\pages\\page-08.png",
+        "width": 893,
+        "height": 1263,
+        "blank_by_pixel_range": false
+      },
+      {
+        "page": 9,
+        "path": "report\\qa\\pages\\page-09.png",
+        "width": 893,
+        "height": 1263,
+        "blank_by_pixel_range": false
+      },
+      {
+        "page": 10,
+        "path": "report\\qa\\pages\\page-10.png",
+        "width": 893,
+        "height": 1263,
+        "blank_by_pixel_range": false
+      },
+      {
+        "page": 11,
+        "path": "report\\qa\\pages\\page-11.png",
+        "width": 893,
+        "height": 1263,
+        "blank_by_pixel_range": false
+      },
+      {
+        "page": 12,
+        "path": "report\\qa\\pages\\page-12.png",
+        "width": 893,
+        "height": 1263,
+        "blank_by_pixel_range": false
+      }
+    ]
+  },
+  "missing_optional_dependencies": [],
+  "failures": []
+}
